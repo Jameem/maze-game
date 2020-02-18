@@ -71,9 +71,10 @@ const horizontalWalls = Array(cells - 1).fill(null).map(() => Array(cells).fill(
 
 const startRow = Math.floor(Math.random() * cells)
 const startColumn = Math.floor(Math.random() * cells)
+console.log(startRow)
+console.log(startColumn)
 
 const stepThroughCell = (row, column) => {
-
     //If I have visited cell at [row, column], then return
     if (grid[row][column]) {
         return
@@ -91,7 +92,7 @@ const stepThroughCell = (row, column) => {
     ])
 
     for (let neighbour of neighbours) {
-        const [nextRow, nextColumn] = neighbour
+        const [nextRow, nextColumn, direction] = neighbour
         //See if that neighbour is out of bounds
         if (nextRow < 0 || nextRow >= cells || nextColumn < 0) {
             continue
@@ -99,13 +100,23 @@ const stepThroughCell = (row, column) => {
 
         //If we have visited that neighbour, continue to next neighbour
         if (grid[nextRow][nextColumn]) {
-
+            continue
         }
 
         // Remove a wall from either horizontals or verticals
-
+        if (direction === 'left') {
+            verticalWalls[row][column - 1] = true
+        } else if (direction === 'right') {
+            verticalWalls[row][column] = true
+        } else if (direction === 'up') {
+            horizontalWalls[row - 1][column] = true
+        } else if (direction === 'down') {
+            horizontalWalls[row][column] = true
+        }
+        stepThroughCell(nextRow, nextColumn)
     }
     //Visit that next cell
+
 }
 
-stepThroughCell(1, 1)
+// stepThroughCell(startRow, startColumn)
