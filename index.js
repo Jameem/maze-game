@@ -53,6 +53,7 @@ World.add(world, walls)
 
 const shuffle = (arr) => {
     let counter = arr.length
+
     while (counter > 0) {
         const index = Math.floor(Math.random() * counter)
         counter--
@@ -61,7 +62,6 @@ const shuffle = (arr) => {
         arr[counter] = arr[index]
         arr[index] = temp
     }
-
     return arr
 }
 
@@ -71,12 +71,13 @@ const horizontalWalls = Array(cells - 1).fill(null).map(() => Array(cells).fill(
 
 const startRow = Math.floor(Math.random() * cells)
 const startColumn = Math.floor(Math.random() * cells)
-console.log(startRow)
-console.log(startColumn)
 
 const stepThroughCell = (row, column) => {
     //If I have visited cell at [row, column], then return
+    // console.log("row " + row)
+    // console.log("column " + column)
     if (grid[row][column]) {
+        console.log("Cell is already visited!")
         return
     }
 
@@ -91,16 +92,17 @@ const stepThroughCell = (row, column) => {
         [row, column - 1, 'left']
     ])
 
-    for (let neighbour of neighbours) {
+    for (let i = 0; i < neighbours.length; i++) {
+        const neighbour = neighbours[i]
         const [nextRow, nextColumn, direction] = neighbour
         //See if that neighbour is out of bounds
-        if (nextRow < 0 || nextRow >= cells || nextColumn < 0) {
-            continue
+        if (nextRow < 0 || nextRow >= cells || nextColumn < 0 || nextColumn >= cells) {
+            continue;
         }
 
         //If we have visited that neighbour, continue to next neighbour
         if (grid[nextRow][nextColumn]) {
-            continue
+            continue;
         }
 
         // Remove a wall from either horizontals or verticals
@@ -113,10 +115,12 @@ const stepThroughCell = (row, column) => {
         } else if (direction === 'down') {
             horizontalWalls[row][column] = true
         }
+        // console.log("nextColumn " + nextColumn)
+        // console.log("nextRow " + nextRow)
         stepThroughCell(nextRow, nextColumn)
     }
     //Visit that next cell
 
 }
 
-// stepThroughCell(startRow, startColumn)
+stepThroughCell(startRow, startColumn)
