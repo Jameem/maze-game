@@ -124,3 +124,12 @@ const stepThroughCell = (row, column) => {
 }
 
 stepThroughCell(startRow, startColumn)
+
+horizontalWalls.forEach((row) => {
+    row.forEach((open) => {
+        if (open)
+            return
+
+        const wall = Bodies.rectangle()
+    })
+})
