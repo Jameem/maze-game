@@ -14,10 +14,10 @@ const {
     world
 } = engine
 
-const cellsHorizontal = 6
-const cellsVertical = 4
-const width = window.innerWidth
-const height = window.innerHeight
+const cellsHorizontal = 10
+const cellsVertical = 6
+const width = window.innerWidth - 15
+const height = window.innerHeight - 20
 const unitLengthX = width / cellsHorizontal
 const unitLengthY = height / cellsVertical
 
